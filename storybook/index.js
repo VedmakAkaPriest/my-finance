@@ -10,10 +10,10 @@ configure(() => {
 
 // Refer to https://github.com/storybookjs/storybook/tree/master/app/react-native#start-command-parameters
 // To find allowed options for getStorybookUI
-const StorybookUIRoot = getStorybookUI({ disableWebsockets: true });
+const StorybookUIRoot = getStorybookUI({ });
 
 // If you are using React Native vanilla and after installation you don't see your app name here, write it manually.
 // If you use Expo you can safely remove this line.
-AppRegistry.registerComponent('main', () => StorybookUIRoot);
+// AppRegistry.registerComponent('main', () => StorybookUIRoot);
 
 export default StorybookUIRoot;

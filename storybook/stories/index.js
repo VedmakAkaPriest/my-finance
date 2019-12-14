@@ -9,6 +9,11 @@ import { linkTo } from '@storybook/addon-links';
 import Button from './Button';
 import CenterView from './CenterView';
 import Welcome from './Welcome';
+import CurrentPeriodHeader from "../../components/CurrentPeriodHeader";
+
+storiesOf('Headers', module)
+  .addDecorator(getStory => <CenterView>{getStory()}</CenterView>)
+  .add('Period select', () => <CurrentPeriodHeader />);
 
 storiesOf('Welcome', module).add('to Storybook', () => <Welcome showApp={linkTo('Button')} />);
 

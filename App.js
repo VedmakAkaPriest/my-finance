@@ -4,12 +4,14 @@ import * as Font from 'expo-font';
 import React, { useState } from 'react';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { Provider as PaperProvider, DefaultTheme } from 'react-native-paper';
 
+import customTheme from './constants/Theme';
 import AppNavigator from './navigation/AppNavigator';
 
-import storyBook from './storybook';
+import StoryBook from './storybook';
 
-const entry = false ? storyBook : function App(props) {
+export default function App(props) {
   const [isLoadingComplete, setLoadingComplete] = useState(false);
 
   if (!isLoadingComplete && !props.skipLoadingScreen) {
@@ -24,13 +26,13 @@ const entry = false ? storyBook : function App(props) {
     return (
       <View style={styles.container}>
         {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-        <AppNavigator />
+        <PaperProvider theme={customTheme}>
+          {false ? <StoryBook/> : <AppNavigator theme='light' />}
+        </PaperProvider>
       </View>
     );
   }
-}
-
-export default entry;
+};
 
 async function loadResourcesAsync() {
   await Promise.all([
@@ -44,8 +46,7 @@ async function loadResourcesAsync() {
       // We include SpaceMono because we use it in HomeScreen.js. Feel free to
       // remove this if you are not using it in your app
       'space-mono': require('./assets/fonts/SpaceMono-Regular.ttf'),
-      Roboto: require("native-base/Fonts/Roboto.ttf"),
-      Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf"),
+      'panton-semi': require('./assets/fonts/Panton-SemiBold.ttf'),
     }),
   ]);
 }
