@@ -1,36 +1,32 @@
 import React from 'react';
-import { View, Text, FlatList, Dimensions } from 'react-native';
+import { View, Text, FlatList } from 'react-native';
 import { List } from 'react-native-paper';
-import outcomeRawData, { categoriesFromOutcome, daysInMonth } from '../fakeData/outcome';
 import { unzip } from 'lodash';
+import Layout from '../constants/Layout';
+import outcomeRawData, { daysInMonth } from '../fakeData/outcome';
 
-const PriceItem = ({ ellipsizeMode, color, fontSize, price }) => (<Text ellipsizeMode={ellipsizeMode} style={{ color, fontSize }}>{price}</Text>);
-const example = (
-  <List.Section>
-    <List.Item
-      title="First Item"
-      description={(textStyle) => (<View><PriceItem {...textStyle} price={123.56}/></View>)}
-      left={() => <List.Icon icon="folder" />}
-    >
-      <Text>111111</Text>
-      <Text>333333</Text>
-    </List.Item>
-    <List.Item
-      title="Second Item"
-      left={() => <List.Icon color="#000" icon="folder" />}
-    />
-  </List.Section>
+const PriceItem = ({ ellipsizeMode, color, fontSize, price }) => (
+  <Text ellipsizeMode={ellipsizeMode} style={{ color, fontSize }}>
+    {price}
+  </Text>
 );
 
-const DayOutcomeList = ({ dayOutcome}) => (
-  <FlatList data={dayOutcome} renderItem={({ item }) => (
-    <List.Item
-      title={item.title}
-      left={() => <List.Icon color="#000" icon="folder" />}
-      description={(textStyle) => (<View><PriceItem {...textStyle} price={item.price}/></View>)}
-      right={() => <Text style={{}}>{item.price}</Text>}
-    />
-  )}/>
+const DayOutcomeList = ({ dayOutcome }) => (
+  <FlatList
+    data={dayOutcome}
+    renderItem={({ item }) => (
+      <List.Item
+        title={item.title}
+        left={() => <List.Icon color="#000" icon="folder" />}
+        description={textStyle => (
+          <View>
+            <PriceItem {...textStyle} price={item.price} />
+          </View>
+        )}
+        right={() => <Text style={{}}>{item.price}</Text>}
+      />
+    )}
+  />
 );
 
 export default function SettingsScreen() {
@@ -42,19 +38,20 @@ export default function SettingsScreen() {
     date,
     data: categories.map((category, row) => ({ key: category, title: category, price: outcomeColumns[idx][row] })),
   }));
-  const screenWidth = Math.round(Dimensions.get('window').width);
 
   return (
-    <FlatList data={outcomePerDay}
-              horizontal
-              pagingEnabled
-              showsHorizontalScrollIndicator={false}
-              renderItem={({ item }) => (
-      <View style={{ width: screenWidth }}>
-        <Text>{item.date.format('dddd, DD.MM')}</Text>
-        <DayOutcomeList dayOutcome={item.data}/>
-      </View>
-    )} />
+    <FlatList
+      data={outcomePerDay}
+      horizontal
+      pagingEnabled
+      showsHorizontalScrollIndicator={false}
+      renderItem={({ item }) => (
+        <View style={{ width: Layout.window.width }}>
+          <Text>{item.date.format('dddd, DD.MM')}</Text>
+          <DayOutcomeList dayOutcome={item.data} />
+        </View>
+      )}
+    />
   );
 }
 

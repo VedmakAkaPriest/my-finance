@@ -12,7 +12,7 @@ import TabView from './TabView';
 
 const config = Platform.select({
   web: { headerMode: 'screen' },
-  default: {},
+  default: { headerMode: 'none' },
 });
 
 const HomeStack = createStackNavigator(
@@ -54,30 +54,36 @@ SettingsStack.navigationOptions = {
 
 SettingsStack.path = '';
 
-const tabNavigator = createMaterialTopTabNavigator({
-  HomeStack,
-  LinksStack,
-  SettingsStack,
-}, {
-  swipeEnabled: true,
-  navigationOptions: {
-    header: ({ navigation }) => <CurrentPeriodHeader/>,
+const tabNavigator = createMaterialTopTabNavigator(
+  {
+    HomeStack,
+    LinksStack,
+    SettingsStack,
   },
-  tabBarComponent: TabView,
-  tabBarOptions: {
-    style: {
-      backgroundColor: '#9b59b6',
+  {
+    swipeEnabled: true,
+    navigationOptions: {
+      header: () => <CurrentPeriodHeader />,
     },
-    labelStyle: {
-      fontFamily: 'space-mono',
-      fontSize: 14,
-      fontWeight: '900',
+    tabBarComponent: TabView,
+    tabBarOptions: {
+      style: {
+        backgroundColor: '#9b59b6',
+      },
+      labelStyle: {
+        fontFamily: 'space-mono',
+        fontSize: 14,
+        fontWeight: '900',
+      },
     },
-  },
-});
+  }
+);
 
 tabNavigator.path = '';
 
-export default createStackNavigator({
-  Tabs: tabNavigator
-}, {});
+export default createStackNavigator(
+  {
+    Tabs: tabNavigator,
+  },
+  {}
+);

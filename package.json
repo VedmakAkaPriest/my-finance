@@ -22,6 +22,9 @@
     "expo-constants": "~8.0.0",
     "expo-font": "~8.0.0",
     "expo-web-browser": "~8.0.0",
+    "mobx": "^5.15.1",
+    "mobx-persist": "^0.4.1",
+    "mobx-react": "^6.1.4",
     "moment": "^2.24.0",
     "react": "~16.9.0",
     "react-dom": "~16.9.0",
@@ -45,7 +48,8 @@
     "@storybook/react-native-server": "^5.2.8",
     "babel-loader": "^8.0.6",
     "babel-preset-expo": "~8.0.0",
-    "jest-expo": "~36.0.0"
+    "jest-expo": "~36.0.0",
+    "prettier": "1.19.1"
   },
   "private": true
 }
