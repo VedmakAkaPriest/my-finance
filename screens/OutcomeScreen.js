@@ -1,9 +1,10 @@
 import React from 'react';
-import { View, Text, FlatList } from 'react-native';
-import { List } from 'react-native-paper';
+import { View, FlatList, StyleSheet } from 'react-native';
+import { List, Text, FAB } from 'react-native-paper';
 import { unzip } from 'lodash';
 import Layout from '../constants/Layout';
 import outcomeRawData, { daysInMonth } from '../fakeData/outcome';
+import AddOutcomeCategory from './AddOutcomeCategory';
 
 const PriceItem = ({ ellipsizeMode, color, fontSize, price }) => (
   <Text ellipsizeMode={ellipsizeMode} style={{ color, fontSize }}>
@@ -29,7 +30,7 @@ const DayOutcomeList = ({ dayOutcome }) => (
   />
 );
 
-export default function SettingsScreen() {
+export default function OutcomeScreen() {
   const outcomeColumns = unzip(outcomeRawData);
   const categories = outcomeColumns.shift();
   const days = daysInMonth(new Date());
@@ -40,21 +41,33 @@ export default function SettingsScreen() {
   }));
 
   return (
-    <FlatList
-      data={outcomePerDay}
-      horizontal
-      pagingEnabled
-      showsHorizontalScrollIndicator={false}
-      renderItem={({ item }) => (
-        <View style={{ width: Layout.window.width }}>
-          <Text>{item.date.format('dddd, DD.MM')}</Text>
-          <DayOutcomeList dayOutcome={item.data} />
-        </View>
-      )}
-    />
+    <>
+      <FlatList
+        data={outcomePerDay}
+        horizontal
+        pagingEnabled
+        showsHorizontalScrollIndicator={false}
+        renderItem={({ item }) => (
+          <View style={{ width: Layout.window.width }}>
+            <Text>{item.date.format('dddd, DD.MM')}</Text>
+            <DayOutcomeList dayOutcome={item.data} />
+          </View>
+        )}
+      />
+      <AddOutcomeCategory />
+    </>
   );
 }
 
-SettingsScreen.navigationOptions = {
+OutcomeScreen.navigationOptions = {
   title: 'app.json',
 };
+
+const styles = StyleSheet.create({
+  fab: {
+    position: 'absolute',
+    margin: 16,
+    right: 0,
+    bottom: 0,
+  },
+});

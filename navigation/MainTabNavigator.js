@@ -6,7 +6,7 @@ import i18n from 'i18n-js';
 
 import HomeScreen from '../screens/HomeScreen';
 import LinksScreen from '../screens/LinksScreen';
-import SettingsScreen from '../screens/SettingsScreen';
+import OutcomeScreen from '../screens/OutcomeScreen';
 import CurrentPeriodHeader from '../components/CurrentPeriodHeader';
 import Strings from '../constants/Strings';
 import TabView from './TabView';
@@ -44,7 +44,7 @@ LinksStack.path = '';
 
 const SettingsStack = createStackNavigator(
   {
-    Settings: SettingsScreen,
+    Settings: OutcomeScreen,
   },
   config
 );
