@@ -1,28 +1,32 @@
-import moment from "moment";
-import 'moment/locale/ru';
-moment.locale('ru');
-
-/* TODO:
 import * as Localization from 'expo-localization';
 import i18n from 'i18n-js';
-const en = {
-  foo: 'Foo',
-  bar: 'Bar {{someValue}}',
-};
-const fr = {
-  foo: 'como telle fous',
-  bar: 'chatouiller {{someValue}}',
-};
+import moment from 'moment';
+import 'moment/locale/ru';
 
-i18n.fallbacks = true;
-i18n.translations = { fr, en };
-i18n.locale = Localization.locale;
-*/
-
-export default {
+const ru = {
   tabs: {
     balance: 'план',
     income: 'доходы',
     outcome: 'расходы',
   },
+  forms: {
+    addOutcome: {
+      category: {
+        title: 'Добавить группу?',
+        name: 'Название',
+        icon: 'Иконка',
+      },
+    },
+  },
+  dialogs: {
+    ok: 'ОК',
+  },
 };
+
+const currentLocale = 'ru' || Localization.locale;
+moment.locale(currentLocale);
+i18n.fallbacks = true;
+i18n.translations = { ru };
+i18n.locale = currentLocale;
+
+export default ru;

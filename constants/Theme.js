@@ -1,4 +1,5 @@
 import { DefaultTheme } from 'react-native-paper';
+import color from 'color';
 
 const defaultFontFamily = 'panton-semi';
 export default {
@@ -15,7 +16,9 @@ export default {
     error: '#B71F0E',
     disabled: '#BEC6C6',
     placeholder: '#1481BA',
-    backdrop: '#001021',
+    backdrop: color('#001021')
+      .alpha(0.7)
+      .rgb(),
   },
   fonts: {
     regular: {

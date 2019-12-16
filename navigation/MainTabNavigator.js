@@ -2,6 +2,7 @@ import React from 'react';
 import { Platform } from 'react-native';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createMaterialTopTabNavigator } from 'react-navigation-tabs';
+import i18n from 'i18n-js';
 
 import HomeScreen from '../screens/HomeScreen';
 import LinksScreen from '../screens/LinksScreen';
@@ -23,7 +24,7 @@ const HomeStack = createStackNavigator(
 );
 
 HomeStack.navigationOptions = {
-  tabBarLabel: Strings.tabs.balance,
+  tabBarLabel: i18n.t('tabs.balance'),
 };
 
 HomeStack.path = '';
@@ -36,7 +37,7 @@ const LinksStack = createStackNavigator(
 );
 
 LinksStack.navigationOptions = {
-  tabBarLabel: Strings.tabs.income,
+  tabBarLabel: i18n.t('tabs.income'),
 };
 
 LinksStack.path = '';
@@ -49,7 +50,7 @@ const SettingsStack = createStackNavigator(
 );
 
 SettingsStack.navigationOptions = {
-  tabBarLabel: Strings.tabs.outcome,
+  tabBarLabel: i18n.t('tabs.outcome'),
 };
 
 SettingsStack.path = '';
