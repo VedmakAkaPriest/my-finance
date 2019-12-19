@@ -42,24 +42,24 @@ LinksStack.navigationOptions = {
 
 LinksStack.path = '';
 
-const SettingsStack = createStackNavigator(
+const OutcomeStack = createStackNavigator(
   {
     Settings: OutcomeScreen,
   },
   config
 );
 
-SettingsStack.navigationOptions = {
+OutcomeStack.navigationOptions = {
   tabBarLabel: i18n.t('tabs.outcome'),
 };
 
-SettingsStack.path = '';
+OutcomeStack.path = '';
 
 const tabNavigator = createMaterialTopTabNavigator(
   {
     HomeStack,
     LinksStack,
-    SettingsStack,
+    SettingsStack: OutcomeStack,
   },
   {
     swipeEnabled: true,

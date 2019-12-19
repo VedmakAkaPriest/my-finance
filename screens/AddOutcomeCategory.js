@@ -37,7 +37,7 @@ const AddOutcomeCategory = () => {
                 right={() => (
                   <TextInput
                     style={{ flex: 999, backgroundColor: 'transparent' }}
-                    label={i18n.t('forms.addOutcome.category.name')}
+                    placeholder={i18n.t('forms.addOutcome.category.name')}
                     value={categoryName}
                     onChangeText={text => setCategoryName(text)}
                     onFocus={() => setShowIcons(false)}
