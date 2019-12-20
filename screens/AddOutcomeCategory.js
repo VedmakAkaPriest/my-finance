@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { StyleSheet, KeyboardAvoidingView, View, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { TextInput, Modal, Portal, IconButton, FAB, List, Surface, Chip } from 'react-native-paper';
 import i18n from 'i18n-js';
+import ListItem from '../components/ListItem';
+
+const iconSet = ['information', 'heart', 'camera'];
 
 const AddOutcomeCategory = () => {
   const [visible, setVisible] = useState(false);
@@ -21,7 +24,7 @@ const AddOutcomeCategory = () => {
               behavior="height"
               enabled
               style={{ justifyContent: 'center', ...StyleSheet.absoluteFillObject }}>
-              <List.Item
+              <ListItem
                 style={{ backgroundColor: 'white' }}
                 titleStyle={{ width: 0 }}
                 left={() => (
@@ -34,9 +37,9 @@ const AddOutcomeCategory = () => {
                     }}
                   />
                 )}
-                right={() => (
+                title={() => (
                   <TextInput
-                    style={{ flex: 999, backgroundColor: 'transparent' }}
+                    style={{ backgroundColor: 'transparent' }}
                     placeholder={i18n.t('forms.addOutcome.category.name')}
                     value={categoryName}
                     onChangeText={text => setCategoryName(text)}
@@ -48,19 +51,15 @@ const AddOutcomeCategory = () => {
               {showIcons && (
                 <Surface style={styles.surface}>
                   <View style={styles.row}>
-                    <Chip
-                      icon="information"
-                      mode="outlined"
-                      style={styles.chip}
-                      onPress={() => console.log('Pressed')}
-                    />
-                    <Chip icon="heart" mode="outlined" style={styles.chip} onPress={() => console.log('Pressed')} />
-                    <Chip icon="camera" mode="outlined" style={styles.chip} onPress={() => console.log('Pressed')} />
-                  </View>
-                  <View style={styles.row}>
-                    <IconButton icon="information" color={'red'} size={20} onPress={() => console.log('Pressed')} />
-                    <IconButton icon="heart" color={'red'} size={20} onPress={() => console.log('Pressed')} />
-                    <IconButton icon="camera" color={'red'} size={20} onPress={() => console.log('Pressed')} />
+                    {iconSet.map(icon => (
+                      <IconButton
+                        icon={icon}
+                        color={'black'}
+                        size={20}
+                        onPress={() => console.log('Pressed')}
+                        key={icon}
+                      />
+                    ))}
                   </View>
                 </Surface>
               )}
@@ -91,8 +90,5 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     paddingHorizontal: 12,
-  },
-  chip: {
-    margin: 4,
   },
 });
