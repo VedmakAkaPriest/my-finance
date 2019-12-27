@@ -6,9 +6,8 @@ import i18n from 'i18n-js';
 
 import HomeScreen from '../screens/HomeScreen';
 import LinksScreen from '../screens/LinksScreen';
-import OutcomeScreen from '../screens/OutcomeScreen';
+import OutcomeScreen from '../screens/outcome/OutcomeScreen';
 import CurrentPeriodHeader from '../components/CurrentPeriodHeader';
-import Strings from '../constants/Strings';
 import TabView from './TabView';
 
 const config = Platform.select({

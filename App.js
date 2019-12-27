@@ -6,6 +6,7 @@ import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { Provider as PaperProvider, DefaultTheme } from 'react-native-paper';
 
+import './constants/Strings';
 import customTheme from './constants/Theme';
 import AppNavigator from './navigation/AppNavigator';
 

@@ -6,15 +6,22 @@ import { daysInMonth, UUID } from './utils';
 import persist from './persist/persist';
 import categories, { Category } from './OutcomeCategory';
 
-const OutcomeEntry = types.model('OutcomeEntry', {
-  date: types.Date,
-  description: '',
-  price: types.number,
-});
+export const OutcomeEntry = types
+  .model('OutcomeEntry', {
+    date: types.Date,
+    description: '',
+    price: types.number,
+  })
+  .actions(self => ({
+    setPrice(num) {
+      self.price = +num;
+    },
+  }));
 
-const OutcomeGroupEntry = types
+export const OutcomeGroupEntry = types
   .model('OutcomeGroupEntry', {
-    category: types.reference(Category, {
+    category: types.safeReference(Category, {
+      acceptsUndefined: true,
       get(identifier, parent) {
         return categories.items.get(identifier);
       },
@@ -22,7 +29,7 @@ const OutcomeGroupEntry = types
         return value.id;
       },
     }),
-    date: types.Date,
+    date: types.maybeNull(types.Date),
     icon: '',
     items: types.array(OutcomeEntry),
   })
@@ -33,9 +40,24 @@ const OutcomeGroupEntry = types
     get price() {
       return self.items ? sumBy(self.items, 'price') : 0;
     },
+  }))
+  .actions(self => ({
+    setCategory(entity) {
+      self.category = entity;
+    },
+    add(price: number, description?: string) {
+      self.items.push(OutcomeEntry.create({ price, description, date: self.date }));
+    },
+    remove(item) {
+      const idx = self.items.indexOf(item);
+      self.items.splice(idx, 1);
+    },
+    compact() {
+      self.items = self.items.filter(item => item.price !== 0);
+    },
   }));
 
-const OutcomeDaily = types
+export const OutcomeDaily = types
   .model('OutcomeDaily', {
     id: types.identifierNumber,
     day: types.Date,
@@ -60,7 +82,9 @@ const OutcomeMonthly = types
     groupNames() {
       return map(self.entries, 'name');
     },
-
+    values() {
+      return [...self.entries.values()] || [];
+    },
     get perDay() {
       return unzip(map(self.entries, item => item.entries));
     },
@@ -82,7 +106,7 @@ function parseMonthData(date, outcomeColumns) {
           // array of OutcomeGroupEntry
           ({
             category: group,
-            date: day.toDate(),
+            date: day.unix(),
             // array of OutcomeEntry
             items: [
               {
@@ -125,7 +149,7 @@ const OutcomeStore = types
      * @param monthDate
      * @returns OutcomeMonthly
      */
-    monthOutcome(monthDate) {
+    monthOutcome(monthDate): OutcomeMonthly {
       const targetDate = moment(monthDate).startOf('month');
       return self.entries.get(targetDate.unix());
     },

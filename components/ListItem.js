@@ -107,6 +107,15 @@ type Props = TouchableRipple & {
  * export default MyComponent;
  * ```
  */
+const TitleComponent = ({ title: Title, ...props }) =>
+  typeof Title === 'string' ? (
+    <Text {...props}>{Title}</Text>
+  ) : typeof Title === 'function' ? (
+    Title(props)
+  ) : (
+    <Title {...props} />
+  );
+
 class ListItem extends React.Component<Props> {
   static displayName = 'List.Item';
 
@@ -156,7 +165,6 @@ class ListItem extends React.Component<Props> {
       .alpha(0.54)
       .rgb()
       .string();
-    const TitleComponent = typeof title === 'function' ? title : Text;
 
     return (
       <TouchableRipple {...rest} style={[styles.container, style]} onPress={onPress}>
@@ -176,9 +184,9 @@ class ListItem extends React.Component<Props> {
             <TitleComponent
               ellipsizeMode={titleEllipsizeMode}
               numberOfLines={titleNumberOfLines}
-              style={[styles.title, { color: titleColor }, titleStyle]}>
-              {typeof title === 'function' ? title : null}
-            </TitleComponent>
+              style={[styles.title, { color: titleColor }, titleStyle]}
+              title={title}
+            />
             {description ? this.renderDescription(descriptionColor, description) : null}
           </View>
           {right

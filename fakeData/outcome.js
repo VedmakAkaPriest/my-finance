@@ -5,10 +5,7 @@ export function generateMonthOutcome(fromDate) {
   const days = daysInMonth(fromDate);
   return Array(10)
     .fill()
-    .map((categoryItems, rowNum) => [
-      `Category ${rowNum + 1}`,
-      ...Array.from(days).map(() => round(random(999, true), 2)),
-    ]);
+    .map((categoryItems, rowNum) => [`Category ${rowNum + 1}`, ...Array.from(days).map(() => random(99999, false))]);
 }
 
 export function categoriesFromOutcome(rawData) {
