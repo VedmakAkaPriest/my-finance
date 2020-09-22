@@ -1,9 +1,9 @@
 {
+  "name": "My Finance",
   "expo": {
     "name": "My Finance",
     "slug": "MyFinance",
     "privacy": "public",
-    "sdkVersion": "36.0.0",
     "platforms": [
       "ios",
       "android",
@@ -25,6 +25,7 @@
     ],
     "ios": {
       "supportsTablet": true
-    }
+    },
+    "sdkVersion": "38.0.0"
   }
 }
