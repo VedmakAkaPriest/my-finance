@@ -4,9 +4,9 @@ import { createStackNavigator } from 'react-navigation-stack';
 import { createMaterialTopTabNavigator } from 'react-navigation-tabs';
 import i18n from 'i18n-js';
 
-import HomeScreen from '../screens/HomeScreen';
-import LinksScreen from '../screens/LinksScreen';
+import BalanceScreen from '../screens/balance/BalanceScreen';
 import OutcomeScreen from '../screens/outcome/OutcomeScreen';
+import IncomeScreen from '../screens/income/IncomeScreen';
 import CurrentPeriodHeader from '../components/CurrentPeriodHeader';
 import TabView from './TabView';
 
@@ -15,35 +15,35 @@ const config = Platform.select({
   default: { headerMode: 'none' },
 });
 
-const HomeStack = createStackNavigator(
+const IncomeStack = createStackNavigator(
   {
-    Home: HomeScreen,
+    Income: IncomeScreen,
   },
   config
 );
 
-HomeStack.navigationOptions = {
-  tabBarLabel: i18n.t('tabs.balance'),
-};
-
-HomeStack.path = '';
-
-const LinksStack = createStackNavigator(
-  {
-    Links: LinksScreen,
-  },
-  config
-);
-
-LinksStack.navigationOptions = {
+IncomeStack.navigationOptions = {
   tabBarLabel: i18n.t('tabs.income'),
 };
 
-LinksStack.path = '';
+IncomeStack.path = '';
+
+const BalanceStack = createStackNavigator(
+  {
+    Balance: BalanceScreen,
+  },
+  config
+);
+
+BalanceStack.navigationOptions = {
+  tabBarLabel: i18n.t('tabs.balance'),
+};
+
+BalanceStack.path = '';
 
 const OutcomeStack = createStackNavigator(
   {
-    Settings: OutcomeScreen,
+    Outcome: OutcomeScreen,
   },
   config
 );
@@ -56,9 +56,9 @@ OutcomeStack.path = '';
 
 const tabNavigator = createMaterialTopTabNavigator(
   {
-    HomeStack,
-    LinksStack,
-    SettingsStack: OutcomeStack,
+    BalanceStack,
+    IncomeStack,
+    OutcomeStack,
   },
   {
     swipeEnabled: true,
